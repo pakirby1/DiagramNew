@@ -23,12 +23,19 @@ struct ContentView: View {
             rendersAsynchronously: false
         ) { context, size in
             let rect = CGRect(origin: .zero, size: size)
-            
+            print("size: \(size)")
 
-            let path = Circle().path(in: rect)
-            context.fill(path, with: .color(.red))
+//            let path = Circle().path(in: rect)
+            let openArrowhead = OpenArrowhead().path(in: rect)
+//            context.fill(path, with: .color(.red))
+            
+            context.stroke(
+                openArrowhead,
+                    with: .color(.green),
+                    lineWidth: 4)
         }
     }
+
 
     var originalBody: some View {
         NavigationView {
