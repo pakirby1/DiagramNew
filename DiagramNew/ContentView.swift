@@ -26,12 +26,16 @@ struct ContentView: View {
             print("size: \(size)")
 
 //            let path = Circle().path(in: rect)
-            let openArrowhead = OpenArrowhead().path(in: rect)
+            let rectangle = Rectangle().path(in: rect)
+            let openArrowhead = OpenArrowhead().newpath(in: rect)
 //            context.fill(path, with: .color(.red))
             
-            context.stroke(
-                openArrowhead,
+            context.stroke(rectangle,
                     with: .color(.green),
+                    lineWidth: 4)
+            
+            context.stroke(openArrowhead,
+                    with: .color(.red),
                     lineWidth: 4)
         }
     }

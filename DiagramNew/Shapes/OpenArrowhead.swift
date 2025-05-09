@@ -20,4 +20,23 @@ struct OpenArrowhead: Shape {
         path.closeSubpath()
         return path
     }
+    
+    /*
+     (0, 0.5 * height)
+     .
+     */
+    func newpath(in rect: CGRect) -> Path {
+        var path = Path()
+        let width = rect.size.width
+        let height = rect.size.height
+        path.move(to: CGPoint(x: 0, y: 0.5*height))
+        path.addLine(to: CGPoint(x: 0.5*width, y: 0.5*height))
+        path.addLine(to: CGPoint(x: 0.5*width, y: 0))
+        path.addLine(to: CGPoint(x: width, y: 0.5*height))
+        path.addLine(to: CGPoint(x: 0.5*width, y: height))
+        path.addLine(to: CGPoint(x: 0.5*width, y: 0.5*height))
+        path.closeSubpath()
+        
+        return path
+    }
 }
