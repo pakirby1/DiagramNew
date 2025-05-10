@@ -26,6 +26,55 @@ struct ContentView: View {
             colorMode: .linear,
             rendersAsynchronously: false
         ) { context, size in
+            // canvas
+            // size: (900.0, 422.0)
+            let rect = CGRect(origin: .zero, size: size)
+            print("size: \(size)")
+
+            // Canvas mid point (450, 211)
+            let center: CGPoint = .init(x: size.width / 2, y: size.height / 2)
+            
+            // Border
+            let canvasBorder = Rectangle().path(in: rect)
+            context.stroke(canvasBorder,
+                    with: .color(.green),
+                    lineWidth: 4)
+            
+            // Rectangle Properties
+            let rectangleSize:CGFloat = 50
+            let cornerSize = CGSize(width: 10, height: 10)
+            
+            // RoundedRect (Left)
+            // (25.0, 186.0, 50.0, 50.0)
+            let left_origin = CGPoint(x: 25, y: center.y - (rectangleSize / 2))
+            let size = CGSize(width: rectangleSize, height: rectangleSize)
+            let left_roundedRectBounds = CGRect(origin: left_origin, size: size)
+            print("left_roundedRectBounds: \(left_roundedRectBounds)")
+            let left_roundedRect = RoundedRectangle(cornerSize: cornerSize).path(in: left_roundedRectBounds)
+            context.stroke(left_roundedRect,
+                    with: .color(.blue),
+                    lineWidth: 4)
+
+            // RoundedRect (Middle)
+            // center_roundedRectBounds: (425.0, 186.0, 50.0, 50.0)
+            let origin = CGPoint(x: center.x - (rectangleSize / 2), y: center.y - (rectangleSize / 2))
+            let center_roundedRectBounds = CGRect(origin: origin, size: size)
+            print("center_roundedRectBounds: \(center_roundedRectBounds)")
+            let center_roundedRect = RoundedRectangle(cornerSize: cornerSize).path(in: center_roundedRectBounds)
+            context.stroke(center_roundedRect,
+                    with: .color(.red),
+                    lineWidth: 4)
+        }
+    }
+    
+    var old_body: some View {
+        Canvas(
+            opaque: true,
+            colorMode: .linear,
+            rendersAsynchronously: false
+        ) { context, size in
+            // canvas
+            // size: (900.0, 422.0)
             let rect = CGRect(origin: .zero, size: size)
             print("size: \(size)")
 
@@ -39,55 +88,17 @@ struct ContentView: View {
                     lineWidth: 4)
             
             // RoundedRect
-            let origin = CGPoint(x: center.x - 25, y: center.y - 25)
-            let size = CGSize(width: 50, height: 50)
+            // (300.0, 61.0, 300.0, 300.0)
+            let dim:CGFloat = 50
+            let origin = CGPoint(x: center.x - (dim / 2), y: center.y - (dim / 2))
+            let size = CGSize(width: dim, height: dim)
             let roundedRectBounds = CGRect(origin: origin, size: size)
+            print("roundedRectBounds: \(roundedRectBounds)")
             
-//            roundedRectBounds.size = CGSize(width: 0.5 * rect.width, height: 0.5 * rect.height)
             let cornerSize = CGSize(width: 10, height: 10)
             let roundedRect = RoundedRectangle(cornerSize: cornerSize).path(in: roundedRectBounds)
             context.stroke(roundedRect,
                     with: .color(.red),
-                    lineWidth: 4)
-        }
-    }
-    
-    var old_body: some View {
-        Canvas(
-            opaque: true,
-            colorMode: .linear,
-            rendersAsynchronously: false
-        ) { context, size in
-            let rect = CGRect(origin: .zero, size: size)
-            print("size: \(size)")
-
-            // Border
-            let canvasBorder = Rectangle().path(in: rect)
-            context.stroke(canvasBorder,
-                    with: .color(.green),
-                    lineWidth: 4)
-            
-            // OpenArrowhead
-            var openArrowheadBounds = CGRect()
-            openArrowheadBounds.size = CGSize(width: 0.5 * rect.width, height: 0.5 * rect.height)
-            let openArrowhead = OpenArrowhead().path(in: openArrowheadBounds)
-            context.stroke(openArrowhead,
-                    with: .color(.red),
-                    lineWidth: 4)
-            
-            // RoundedRect
-            var roundedRectBounds = CGRect()
-            roundedRectBounds.size = CGSize(width: 0.5 * rect.width, height: 0.5 * rect.height)
-            let cornerSize = CGSize(width: 25, height: 25)
-            let roundedRect = RoundedRectangle(cornerSize: cornerSize).path(in: roundedRectBounds)
-            context.stroke(roundedRect,
-                    with: .color(.red),
-                    lineWidth: 4)
-            
-            // Triangle
-            let triangle = DiagramTriangle().path(in: rect)
-            context.stroke(triangle,
-                    with: .color(.blue),
                     lineWidth: 4)
         }
     }
