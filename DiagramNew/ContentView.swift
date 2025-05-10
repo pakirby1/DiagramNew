@@ -43,28 +43,38 @@ struct ContentView: View {
             // Rectangle Properties
             let rectangleSize:CGFloat = 50
             let cornerSize = CGSize(width: 10, height: 10)
+            let size = CGSize(width: rectangleSize, height: rectangleSize)
             
             // RoundedRect (Left)
             // (25.0, 186.0, 50.0, 50.0)
             let left_origin = CGPoint(x: 25, y: center.y - (rectangleSize / 2))
-            let size = CGSize(width: rectangleSize, height: rectangleSize)
-            let left_roundedRectBounds = CGRect(origin: left_origin, size: size)
-            print("left_roundedRectBounds: \(left_roundedRectBounds)")
-            let left_roundedRect = RoundedRectangle(cornerSize: cornerSize).path(in: left_roundedRectBounds)
-            context.stroke(left_roundedRect,
-                    with: .color(.blue),
-                    lineWidth: 4)
+            drawRoundedRect(context: context, origin: left_origin, size: size, cornerSize: cornerSize, id: "Left", color: .color(.red))
 
             // RoundedRect (Middle)
             // center_roundedRectBounds: (425.0, 186.0, 50.0, 50.0)
-            let origin = CGPoint(x: center.x - (rectangleSize / 2), y: center.y - (rectangleSize / 2))
-            let center_roundedRectBounds = CGRect(origin: origin, size: size)
-            print("center_roundedRectBounds: \(center_roundedRectBounds)")
-            let center_roundedRect = RoundedRectangle(cornerSize: cornerSize).path(in: center_roundedRectBounds)
-            context.stroke(center_roundedRect,
-                    with: .color(.red),
-                    lineWidth: 4)
+            let center_origin = CGPoint(x: center.x - (rectangleSize / 2), y: center.y - (rectangleSize / 2))
+            drawRoundedRect(context: context, origin: center_origin, size: size, cornerSize: cornerSize, id: "Center", color: .color(.green))
+            
+            let right_origin = CGPoint(x: rect.width - 25 - rectangleSize, y: center.y - (rectangleSize / 2))
+            drawRoundedRect(context: context, origin: right_origin, size: size, cornerSize: cornerSize, id: "Right", color: .color(.blue))
         }
+    }
+    
+    func drawRoundedRect(context: GraphicsContext,
+                         origin: CGPoint,
+                         size: CGSize,
+                         cornerSize: CGSize,
+                         id: String,
+                         color: GraphicsContext.Shading)
+    {
+        // RoundedRect (Left)
+        // (25.0, 186.0, 50.0, 50.0)
+        let roundedRectBounds = CGRect(origin: origin, size: size)
+        print("\(id) roundedRectBounds: \(roundedRectBounds)")
+        let roundedRect = RoundedRectangle(cornerSize: cornerSize).path(in: roundedRectBounds)
+        context.stroke(roundedRect,
+                with: color,
+                lineWidth: 4)
     }
     
     var old_body: some View {
@@ -87,17 +97,28 @@ struct ContentView: View {
                     with: .color(.green),
                     lineWidth: 4)
             
-            // RoundedRect
-            // (300.0, 61.0, 300.0, 300.0)
-            let dim:CGFloat = 50
-            let origin = CGPoint(x: center.x - (dim / 2), y: center.y - (dim / 2))
-            let size = CGSize(width: dim, height: dim)
-            let roundedRectBounds = CGRect(origin: origin, size: size)
-            print("roundedRectBounds: \(roundedRectBounds)")
-            
+            // Rectangle Properties
+            let rectangleSize:CGFloat = 50
             let cornerSize = CGSize(width: 10, height: 10)
-            let roundedRect = RoundedRectangle(cornerSize: cornerSize).path(in: roundedRectBounds)
-            context.stroke(roundedRect,
+            
+            // RoundedRect (Left)
+            // (25.0, 186.0, 50.0, 50.0)
+            let left_origin = CGPoint(x: 25, y: center.y - (rectangleSize / 2))
+            let size = CGSize(width: rectangleSize, height: rectangleSize)
+            let left_roundedRectBounds = CGRect(origin: left_origin, size: size)
+            print("left_roundedRectBounds: \(left_roundedRectBounds)")
+            let left_roundedRect = RoundedRectangle(cornerSize: cornerSize).path(in: left_roundedRectBounds)
+            context.stroke(left_roundedRect,
+                    with: .color(.blue),
+                    lineWidth: 4)
+
+            // RoundedRect (Middle)
+            // center_roundedRectBounds: (425.0, 186.0, 50.0, 50.0)
+            let origin = CGPoint(x: center.x - (rectangleSize / 2), y: center.y - (rectangleSize / 2))
+            let center_roundedRectBounds = CGRect(origin: origin, size: size)
+            print("center_roundedRectBounds: \(center_roundedRectBounds)")
+            let center_roundedRect = RoundedRectangle(cornerSize: cornerSize).path(in: center_roundedRectBounds)
+            context.stroke(center_roundedRect,
                     with: .color(.red),
                     lineWidth: 4)
         }
