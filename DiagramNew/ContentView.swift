@@ -18,7 +18,8 @@ struct ContentView: View {
 
     var body: some View {
 //        new_body
-        bezier_body
+//        bezier_body
+        AnimateableLineView()
     }
 
     var new_body: some View {
