@@ -45,8 +45,10 @@ struct AnimatableLine: Shape {
 
 struct AnimateableLineView : View {
     @State var startPoint: CGPoint = CGPoint(x: 50, y: 100)
-    @State var endPoint: CGPoint = CGPoint(x: 250, y: 100)
-
+    @State var endPoint: CGPoint = CGPoint(x: 50, y: 100)
+    let shapeAPosition: CGPoint = CGPoint(x: 25, y: 100)
+    let shapeBPosition: CGPoint = CGPoint(x: 225, y: 100)
+    
     var body: some View {
         VStack {
             ZStack {
@@ -54,17 +56,11 @@ struct AnimateableLineView : View {
                     .fill(.green)
                     .frame(width: 50, height: 50)
                     .position(startPoint)
-                    .gesture(
-                        DragGesture()
-                            .onChanged { value in
-                                startPoint = value.location
-                            }
-                    )
-                
+                    
                 Rectangle()
                     .stroke(.white, lineWidth: 3)
                     .frame(width: 50, height: 50)
-                    .position(CGPoint(x:startPoint.x - 25, y: startPoint.y))
+                    .position(shapeAPosition)
                 
                 Circle()
                     .fill(.red)
@@ -73,15 +69,14 @@ struct AnimateableLineView : View {
                     .gesture(
                         DragGesture()
                             .onChanged { value in
-                                endPoint = value.location
+                                endPoint = constrainY(location: value.location, limit: 100.00)
                             }
                     )
                 
                 Rectangle()
                     .stroke(.white, lineWidth: 3)
                     .frame(width: 50, height: 50)
-                    .position(CGPoint(x:endPoint.x + 25, y: endPoint.y))
-                
+                    .position(shapeBPosition)
                 
                 
                 AnimatableLine(start: startPoint, end: endPoint)
@@ -98,6 +93,11 @@ struct AnimateableLineView : View {
     }
 }
 
+extension AnimateableLineView {
+    func constrainY(location: CGPoint, limit: CGFloat) -> CGPoint {
+        CGPoint(x: location.x, y: limit)
+    }
+}
 #Preview {
     AnimateableLineView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
