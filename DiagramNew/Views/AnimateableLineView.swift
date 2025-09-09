@@ -69,7 +69,7 @@ struct AnimateableLineView : View {
                     .gesture(
                         DragGesture()
                             .onChanged { value in
-                                endPoint = constrainY(location: value.location, limit: 100.00)
+                                endPoint = constrain(location: value.location, startPostion: shapeAPosition, endPosition: shapeBPosition)
                             }
                     )
                 
@@ -94,8 +94,16 @@ struct AnimateableLineView : View {
 }
 
 extension AnimateableLineView {
-    func constrainY(location: CGPoint, limit: CGFloat) -> CGPoint {
-        CGPoint(x: location.x, y: limit)
+    func constrain(location: CGPoint, xLimit: CGFloat, yLimit: CGFloat) -> CGPoint {
+        CGPoint(x: min(location.x, xLimit), y: yLimit)
+    }
+    
+    func constrain(location: CGPoint, startPostion: CGPoint, endPosition: CGPoint) -> CGPoint
+    {
+        let m = max(location.x, startPostion.x)
+        print("m \(m)")
+        
+        return CGPoint(x: m, y: endPosition.y)
     }
 }
 #Preview {

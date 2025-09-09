@@ -19,7 +19,11 @@ struct ContentView: View {
     var body: some View {
 //        new_body
 //        bezier_body
-        AnimateableLineView()
+        ZStack {
+            MyArcView()
+        }.frame(width: 200, height: 100)
+        
+//        AnimateableLineView()
     }
 
     var new_body: some View {
