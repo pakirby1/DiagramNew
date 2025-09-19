@@ -5,6 +5,9 @@
 //  Created by Phil Kirby on 9/6/25.
 //
 import SwiftUI
+import Foundation
+import os
+
 
 struct Line: Shape {
     var start: CGPoint
@@ -22,9 +25,11 @@ struct AnimatableLine: Shape {
     var start: CGPoint
     var end: CGPoint
 
+    
+    
     var animatableData: AnimatablePair<AnimatablePair<CGFloat, CGFloat>, AnimatablePair<CGFloat, CGFloat>> {
         get {
-            AnimatablePair(
+            return AnimatablePair(
                 AnimatablePair(start.x, start.y),
                 AnimatablePair(end.x, end.y)
             )
